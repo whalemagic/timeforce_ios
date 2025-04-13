@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Секундомер</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>TimeForce iOS</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="timer-display" id="timer">00:00,00</div>
@@ -13,6 +16,33 @@
     <button class="circle-button right start" id="startStop">Старт</button>
   </div>
   <ul class="laps" id="laps"></ul>
-  <script src="script.js"></script>
+  <div id="settingsContainer"></div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+
+    fetch("timeforce_ios_settings.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("settingsContainer").innerHTML = html;
+      });
+
+    let lastTap = 0;
+    document.body.addEventListener("touchend", function(e) {
+      const now = new Date().getTime();
+      if (now - lastTap < 400) {
+        const touch = e.changedTouches[0];
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        if (touch.clientX > vw * 0.8 && touch.clientY > vh * 0.8) {
+          const s = document.getElementById("settingsPanel");
+          if (s) s.style.display = s.style.display === "none" ? "block" : "none";
+        }
+      }
+      lastTap = now;
+    });
+  </script>
 </body>
 </html>

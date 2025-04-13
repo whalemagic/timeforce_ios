@@ -3,6 +3,7 @@ let startTime, timerInterval;
 let isRunning = false;
 let lapCount = 0;
 let forcedNumber = localStorage.getItem("forceDefault") || "123654";
+
 const timerDisplay = document.getElementById("timer");
 const startStopBtn = document.getElementById("startStop");
 const lapBtn = document.getElementById("lap");

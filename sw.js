@@ -8,8 +8,6 @@ self.addEventListener('install', e => {
         './style.css',
         './script.js',
         './manifest.json',
-        './icon192.png',
-        './icon512.png',
         './timeforce_ios_settings.html'
       ]);
     })

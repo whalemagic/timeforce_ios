@@ -1,0 +1,32 @@
+
+<div id="settingsPanel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#111; color:white; padding:20px; z-index:1000; font-family:sans-serif;">
+  <h2>Меню фокусника</h2>
+  <label>Число по умолчанию (будет использоваться при каждом запуске):</label><br>
+  <input type="text" id="defaultNumber" style="width:100%; margin-bottom:10px;"><br>
+  <label>Число для текущего запуска:</label><br>
+  <input type="text" id="currentNumber" placeholder="Оставьте пустым для использования по умолчанию" style="width:100%; margin-bottom:20px;"><br>
+  <h3>Дополнительные настройки</h3>
+  <label>Число кругов по умолчанию:</label><br>
+  <input type="number" id="defaultLaps" min="1" max="10" value="3" style="width:100%; margin-bottom:20px;"><br>
+  <label>
+    <input type="checkbox" id="msToggle" onchange="setMsDigitsFromToggle(this.checked)">
+    Показывать миллисекунды (3 знака после запятой)
+  </label><br><br>
+  <button onclick="closeSettings()">Закрыть</button>
+</div>
+<script>
+function getMsDigits() {
+  return localStorage.getItem("msDigits") === "2" ? 2 : 3;
+}
+function setMsDigitsFromToggle(checked) {
+  localStorage.setItem("msDigits", checked ? "3" : "2");
+}
+function closeSettings() {
+  document.getElementById("settingsPanel").style.display = "none";
+}
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("msToggle").checked = getMsDigits() !== 2;
+  document.getElementById("defaultNumber").value = localStorage.getItem("forceDefault") || "123654";
+  document.getElementById("defaultLaps").value = localStorage.getItem("forceLaps") || 3;
+});
+</script>
