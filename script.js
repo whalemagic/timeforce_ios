@@ -1,8 +1,8 @@
+
 let startTime, timerInterval;
 let isRunning = false;
 let lapCount = 0;
-let forcedNumber = "123654";  // можно заменить из localStorage при необходимости
-
+let forcedNumber = localStorage.getItem("forceDefault") || "123654";
 const timerDisplay = document.getElementById("timer");
 const startStopBtn = document.getElementById("startStop");
 const lapBtn = document.getElementById("lap");
@@ -12,7 +12,8 @@ function formatTime(ms) {
   const totalSeconds = Math.floor(ms / 1000);
   const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
   const seconds = (totalSeconds % 60).toString().padStart(2, "0");
-  const milliseconds = Math.floor((ms % 1000) / 10).toString().padStart(2, "0");
+  const digits = localStorage.getItem("msDigits") === "2" ? 2 : 3;
+  const milliseconds = Math.floor(ms % 1000).toString().padStart(3, "0").slice(0, digits);
   return `${minutes}:${seconds},${milliseconds}`;
 }
 
