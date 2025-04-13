@@ -28,21 +28,6 @@
       .then(html => {
         document.getElementById("settingsContainer").innerHTML = html;
       });
-
-    let lastTap = 0;
-    document.body.addEventListener("touchend", function(e) {
-      const now = new Date().getTime();
-      if (now - lastTap < 400) {
-        const touch = e.changedTouches[0];
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        if (touch.clientX > vw * 0.8 && touch.clientY > vh * 0.8) {
-          const s = document.getElementById("settingsPanel");
-          if (s) s.style.display = s.style.display === "none" ? "block" : "none";
-        }
-      }
-      lastTap = now;
-    });
   </script>
 </body>
 </html>

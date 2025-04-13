@@ -12,7 +12,7 @@
     <input type="checkbox" id="msToggle" onchange="setMsDigitsFromToggle(this.checked)">
     Показывать миллисекунды (3 знака после запятой)
   </label><br><br>
-  <button onclick="closeSettings()">Закрыть</button>
+  <button onclick="document.getElementById('settingsPanel').style.display = 'none';">Закрыть</button>
 </div>
 <script>
 function getMsDigits() {
@@ -20,9 +20,6 @@ function getMsDigits() {
 }
 function setMsDigitsFromToggle(checked) {
   localStorage.setItem("msDigits", checked ? "3" : "2");
-}
-function closeSettings() {
-  document.getElementById("settingsPanel").style.display = "none";
 }
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("msToggle").checked = getMsDigits() !== 2;
